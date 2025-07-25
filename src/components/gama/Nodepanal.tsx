@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import { MessageSquareText } from "lucide-react";
 import {
   Sidebar,
@@ -10,11 +10,18 @@ import {
   SidebarFooter,
 } from "../beta/sidebar";
 import { Button } from "../alpha/button";
+import { useNavigate } from "react-router";
 
 export default function NodePanal(props: React.ComponentProps<typeof Sidebar>) {
+  const navigate = useNavigate();
   return (
     <Sidebar collapsible="offcanvas" {...props} variant="floating">
-      <Button className="w-20 m-1 p-1 cursor-pointer">Back</Button>
+      <Button
+        className="w-20 m-1 p-1 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        Back
+      </Button>
 
       <SidebarHeader>
         <SidebarMenu className="text-center">

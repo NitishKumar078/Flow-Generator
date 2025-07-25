@@ -9,9 +9,10 @@ import {
   type Node,
   type Connection,
 } from "@xyflow/react";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { nodeTypes } from "@/components/beta/nodes";
 import "@xyflow/react/dist/style.css";
+import { messageNode } from "@/components/alpha/MessageNode";
 
 const PlayGroundCanvas = () => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
@@ -30,17 +31,20 @@ const PlayGroundCanvas = () => {
         x: event.clientX,
         y: event.clientY,
       };
-
-      const newNode: Node = {
-        id: crypto.randomUUID(),
-        type,
-        position,
-        data: {
-          title: "Send Message",
-          message: "test message 1",
-        },
-        draggable: true,
-      };
+      // const newNode: Node = {
+      //   id: crypto.randomUUID(),
+      //   type,
+      //   position,
+      //   data: {
+      //     title: "Send Message",
+      //     message: "test message 1",
+      //   },
+      //   draggable: true,
+      // };
+      let newNode: any;
+      if (type === "messageNode") {
+        newNode = messageNode(position, type);
+      }
 
       setNodes((nds) => nds.concat(newNode));
     },
@@ -56,6 +60,8 @@ const PlayGroundCanvas = () => {
     setEdges((eds) => addEdge(connection, eds));
   }, []);
 
+  useEffect(() => {}, []);
+
   return (
     <div className="flex w-screen h-screen" ref={reactFlowWrapper}>
       <ReactFlow
@@ -69,11 +75,12 @@ const PlayGroundCanvas = () => {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         isValidConnection={(connection) => {
-          const hasEdgeAlready = edges.some(
-            (edge) =>
+          const hasEdgeAlready = edges.some((edge) => {
+            if (edge.source) {
               edge.source === connection.source &&
-              edge.sourceHandle === connection.sourceHandle
-          );
+                edge.sourceHandle === connection.sourceHandle;
+            }
+          });
           return !hasEdgeAlready;
         }}
         fitView

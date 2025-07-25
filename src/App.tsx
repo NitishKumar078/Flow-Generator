@@ -17,7 +17,7 @@ function App() {
       >
         <Layout>
           <Routes>
-            <Route path="/" element={<PlayGround />} />
+            <Route path="/*" element={<PlayGround />} />
           </Routes>
         </Layout>
       </FlowContext.Provider>

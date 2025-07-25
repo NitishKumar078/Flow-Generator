@@ -15,7 +15,9 @@ import {
 } from "@/components/beta/sidebar";
 import { Link } from "react-router-dom";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props} variant="floating">
       {/*  Header with user info */}
@@ -40,17 +42,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuItem>
               <Link to={"/"} className="inline-flex items-center gap-1">
                 <House className="size-5" />
-                <SidebarMenuButton isActive>Home</SidebarMenuButton>
+                <SidebarMenuButton isActive>Play Ground</SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <Link
-                to={"/playground"}
-                className="inline-flex items-center gap-1"
-              >
+              <Link to={"/nodes"} className="inline-flex items-center gap-1">
                 <SquareTerminal scale={2} width={24} height={24} />
-                <SidebarMenuButton>Play Ground</SidebarMenuButton>
+                <SidebarMenuButton>Nodes</SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
 

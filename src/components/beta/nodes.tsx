@@ -1,4 +1,4 @@
-import MessageNodestruct from "../alpha/MessageNode";
+import { MessageNodestruct } from "../alpha/MessageNode";
 
 export const nodeTypes = {
   messageNode: MessageNodestruct,
