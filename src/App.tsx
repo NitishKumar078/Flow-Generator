@@ -3,17 +3,27 @@ import Layout from "./components/gama/Layout";
 import PlayGround from "./Pages/PlayGround";
 import { FlowContext } from "./lib/FlowContext";
 import { useState } from "react";
-import { useNodesState, type ReactFlowInstance } from "@xyflow/react";
+import {
+  useNodesState,
+  type ReactFlowInstance,
+  type Node,
+} from "@xyflow/react";
 
 function App() {
-  const [nodes, setNodes] = useNodesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance | null>(null);
 
   return (
     <Router>
       <FlowContext.Provider
-        value={{ setNodes, reactFlowInstance, setReactFlowInstance }}
+        value={{
+          nodes,
+          setNodes,
+          onNodesChange,
+          reactFlowInstance,
+          setReactFlowInstance,
+        }}
       >
         <Layout>
           <Routes>

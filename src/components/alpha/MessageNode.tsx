@@ -1,7 +1,7 @@
 // components/nodes/MessageNode.tsx
 import { Handle, Position, type Node } from "@xyflow/react";
 import React from "react";
-import { MessageSquareText } from "lucide-react";
+
 import {
   Sidebar,
   SidebarHeader,
@@ -13,6 +13,7 @@ import {
 } from "../beta/sidebar";
 import { Button } from "../alpha/button";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useFlowContext } from "@/lib/FlowContext";
 
 interface NodeProps {
   data: {
@@ -81,6 +82,32 @@ function EditmessageNode(props: React.ComponentProps<typeof Sidebar>) {
   const navigator = useNavigate();
   const location = useLocation();
   const [message, setMessage] = React.useState("");
+  const { setNodes } = useFlowContext();
+
+  const handleEdit = () => {
+    // get the message from the input field
+    console.log(location.pathname);
+    const id = location.pathname.split("/").pop();
+    // const messageInput = document.getElementById(
+    //   `message_${id}`
+    // ) as HTMLInputElement;
+    // messageInput.innerText = message || "No message";
+    //
+    setNodes((prevNodes: Node[]) =>
+      prevNodes.map((node) =>
+        node.id === id // 🔁 Replace with actual id or dynamic value
+          ? {
+              ...node,
+              data: {
+                ...node.data,
+                message: message,
+              },
+            }
+          : node
+      )
+    );
+    navigator("/nodes");
+  };
   return (
     <Sidebar collapsible="offcanvas" {...props} variant="floating">
       <Button
@@ -119,14 +146,7 @@ function EditmessageNode(props: React.ComponentProps<typeof Sidebar>) {
           <Button
             className="w-20 m-1 p-1 bg-blue-700 hover:bg-blue-500  transition-all duration-300 "
             onClick={() => {
-              // get the message from the input field
-              console.log(location.pathname);
-              const id = location.pathname.split("/").pop();
-              const messageInput = document.getElementById(
-                `message_${id}`
-              ) as HTMLInputElement;
-              messageInput.innerText = message || "No message";
-              navigator("/nodes");
+              handleEdit();
             }}
           >
             save

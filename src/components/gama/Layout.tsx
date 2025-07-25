@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { SidebarProvider, SidebarTrigger } from "../beta/sidebar";
-import AppSidebar from "./AppSidebar";
+import { AppSidebar } from "./AppSidebar";
 import Nodepanal from "./Nodepanal";
 import { useLocation } from "react-router-dom";
 import { EditmessageNode } from "../alpha/MessageNode";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
+  // console.log("checking the nodes", nodes);
   const [sidepanal, setSidebar] = useState("null");
   const location = useLocation();
   useEffect(() => {
@@ -14,7 +19,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       setSidebar("nodes");
     } else if (location.pathname.includes("/editmessageNode/")) {
       setSidebar("edit_message");
-    } else {
+    }
+    // else if (location.pathname == "/settings") {
+    //   setSidebar("settings");
+    // }
+    else {
       setSidebar("null");
     }
   }, [sidepanal, location.pathname]);
@@ -25,6 +34,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         return <Nodepanal />;
       case "edit_message":
         return <EditmessageNode />;
+      // case "settings":
+      //   return <Setting />;
       default:
         return <AppSidebar />;
     }
@@ -34,10 +45,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen flex-col">
         {/* Sidebar always visible */}
-        {/* {sidepanal === "nodes" ? <Nodepanal /> : <AppSidebar />} */}
 
         <SidePanelRenderer sidepanal={sidepanal} />
-        {/* //<Nodepanal /> */}
         {/* Main content area */}
         <main className="flex flex-row ">
           <SidebarTrigger className="fixed top-2 left-64 z-100 cursor-pointer" />
