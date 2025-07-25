@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SidebarProvider, SidebarTrigger } from "../beta/sidebar";
 import AppSidebar from "./AppSidebar";
 import Nodepanal from "./Nodepanal";
@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { EditmessageNode } from "../alpha/MessageNode";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [sidepanal, setSidebar] = useState("");
+  const [sidepanal, setSidebar] = useState("null");
   const location = useLocation();
   useEffect(() => {
     // Ensure the document is ready before applying styles
@@ -14,6 +14,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       setSidebar("nodes");
     } else if (location.pathname.includes("/editmessageNode/")) {
       setSidebar("edit_message");
+    } else {
+      setSidebar("null");
     }
   }, [sidepanal, location.pathname]);
 
