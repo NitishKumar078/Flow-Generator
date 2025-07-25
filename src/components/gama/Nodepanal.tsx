@@ -58,6 +58,9 @@ export default function NodePanal(props: React.ComponentProps<typeof Sidebar>) {
           <p className="text-sm text-blue-700">
             Drag a node and drop it onto the canvas to create a new element.
           </p>
+          <p className="text-sm text-red-700">
+            <u>node</u>: If you dont see the node try to zoom out
+          </p>
         </div>
       </SidebarFooter>
     </Sidebar>
