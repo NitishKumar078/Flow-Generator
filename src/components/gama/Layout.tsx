@@ -1,12 +1,13 @@
 import { SidebarProvider, SidebarTrigger } from "../beta/sidebar";
-import { AppSidebar } from "../beta/AppSidebar";
+// import AppSidebar from "../beta/AppSidebar";
+import Nodepanal from "./Nodepanal";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen flex-col">
         {/* Sidebar always visible */}
-        <AppSidebar />
+        <Nodepanal />
         {/* Main content area */}
         <main className="flex flex-row ">
           <SidebarTrigger className="fixed top-2 left-64 z-100 cursor-pointer" />
